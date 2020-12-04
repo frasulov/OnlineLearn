@@ -1,0 +1,30 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/login.css' %}">
+<script src="{% static '/OnlineLearn/js/login.js' %}"></script>
+
+<div class="login">
+		<h2>Login</h2>
+		<form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+			<div class="form-group">
+				<label for="email">Email</label>
+				<input id="email" class="form-control my-input-field" type="email" placeholder="yourname@example.com" name="email" required>
+			</div>
+			<div class="form-group">
+				<label for="pass-in">Password</label>
+				<div id="t-password" class="row t-password">
+					<div class="col-11">
+						<input id="pass-in" class="input-f" type="password" name="password" required>
+					</div>
+					<div class="col-1 d-flex justify-content-center align-items-center">
+						<i id="hide-or" data-true="1" class="fas fa-eye"></i>
+					</div>
+				</div>
+			</div>
+			<button class="my-own-button">Login</button>
+		</form>
+		<div class="no-account">You don't have an account? <a href="{% url 'register' %}">Sign up</a></div>
+</div>
+{% endblock %}

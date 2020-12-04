@@ -1,0 +1,10 @@
+{% extends "OnlineLearn/layout.html" %}
+{% block body %}
+
+{% if user.is_authenticated %}
+<h1>I am {{user}}</h1>
+{%else%}
+<h1>No user</h1>
+{%endif%}
+
+{% endblock %}

@@ -1,0 +1,445 @@
+body{
+	font-size: 1rem;
+	line-height: 1.43em;
+	font-weight: 400;
+  width: 100%;
+  height: 100%;
+}
+
+html{
+  width: 100%;
+  height: 100%;
+}
+
+.main{
+    margin-left: 30px;
+    position: relative;
+    padding: 0;
+    height: 100%;
+    padding: 20px 0;
+    font-size: 14px;
+}
+.toblue{
+    color: #22d1f6;
+}
+
+.inside{
+    top: 61px;
+    background-color: #fff;
+    position: absolute;
+    min-height: 500px;
+    width: 250px;
+    left:0;
+    box-shadow: 0 -10px 10px -10px #dce0e3,
+    0 10px 10px -10px #dce0e3,
+    -10px 0 10px -10px #dce0e3;
+    animation: tolong 0.3s;
+    animation-play-state: paused;
+}
+.inside, .double-inside{
+    font-size: 14px;
+    padding:15px 5px 5px 5px;
+    border: 1px solid #c3c6c9;
+    /* box-shadow: 0 0 3px 3px #dce0e3; */
+}
+.inside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.inside ul li{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 10px;
+    transition: color 0.1s linear;;
+}
+.inside ul li + li{
+    padding-top: 15px;
+}
+.inside ul li:hover{
+    color: #22d1f6;
+}
+.double-inside{
+    background-color: #fff;
+    position: absolute;
+    box-shadow: 0 -10px 10px -10px #dce0e3,
+              0 10px 10px -10px #dce0e3,
+              10px 0 10px -10px #dce0e3;
+    border-left: none;
+    min-height: 500px;
+    width: 250px;
+    left:249px;
+    top:-1px;
+    animation: tolong 0.3s;
+    animation-play-state: paused;
+}
+
+.my-nav{
+    width: 100%;
+    box-shadow: 0 10px 10px -10px #dce0e3;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 25px;
+}
+
+.nav-brand{
+    color:black;
+}
+
+.nav-brand:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.nav-elemets{
+    flex-direction: row;
+}
+
+.search-box{
+    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    width: 600px;
+}
+
+.search-box form{
+    padding: 6px 10px 6px 15px;
+    padding-right: 10px;
+    width: 100%;
+    border: 1px solid #797d80;
+    border-radius: 25px;
+    position: relative;
+    background-color: rgba(195, 198, 201, 0.2);
+}
+
+.search-box form input{
+    width: 100%;
+    border:none;
+    outline:none;
+    font-size: 14px;
+    color:#494b4d;
+    padding: 0 5px 0 15px;
+    background-color: inherit;
+}
+.icon-s{
+    color:#494b4d;
+    font-size: 18px;
+}
+.search-box form input:focus{
+    border:none;
+    outline:none;
+}
+
+.next{
+    position: absolute;
+    width: 600px;
+    background-color: #fff;
+    border: 1px solid #c3c6c9;
+    top: 55px;
+    border-radius: 3px;
+    padding: 15px;
+    font-size: 14px;
+    animation-name: tolong;
+    animation-duration: 0.5s;
+}
+
+.next ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+.next ul li + li {
+    margin-top: 10px;
+}
+.next ul li i {
+    font-size: 12px;
+}
+.next ul li span {
+    margin-left: 15px;
+}
+
+.my-btn{
+    font-size: 16px;
+    letter-spacing: 0.5px;
+	border: 1px solid #22d1ff;
+	background-color: #fff;
+	border-radius: 7px;
+	padding: 5px 30px;
+	font-weight: 500;
+    color: #22d1ff;
+    height: auto;
+    transition: all 0.2s linear;
+}
+.my-btn:hover{
+	color: #fff;
+	border-color: transparent;
+    background-color: #22d1ff;
+    text-decoration: none;
+}
+.my-reverse-btn{
+    padding: 5px 25px;
+    border: 1px solid transparent;
+    background-color: #22d1ff;
+    color: #fff;
+}
+.my-reverse-btn:hover{
+    border-color: #22d1ff;
+    color: #22d1ff;
+    background-color:#fff;
+}
+.right-side{
+    position: absolute;
+    right: 25px;
+    top: 12.5px;
+}
+
+/* silinecek after backedn */
+.right-side-2{
+    position: absolute;
+    right: 25px;
+    /* top: 1px;   */
+}
+
+.phone{
+    width: 100%;
+    height: 61px;
+}
+
+@keyframes tolong {
+    from {
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 1140px) {
+    .search-box{
+        width: 450px;
+        animation-name: tosmall;
+        animation-duration: 1s;
+    }
+    .next{
+        width: 450px;
+        animation-name: tosmall;
+        animation-duration: 1s;
+
+    }
+    @keyframes tosmall {
+        from {
+            width: 600px;
+        }
+        to{
+            width: 450px;
+        }
+    }
+  }
+
+  @media only screen and (max-width: 960px) {
+    .search-box{
+        width: 280px;
+        animation-name: tosmall-2;
+        animation-duration: 1s;
+    }
+    .next{
+        width: 280px;
+        animation-name: tosmall-2;
+        animation-duration: 1s;
+
+    }
+    @keyframes tosmall-2 {
+        from {
+            width: 450px;
+        }
+        to{
+            width: 280px;
+        }
+    }
+  }
+
+  .ui {
+    background-color: white !important;
+    padding: 0 0 8px 0;
+}
+
+.toggler{
+    background-color: #fff;
+    border:none;
+    font-size: 24px;
+    transition: all 0.2s linear;
+}
+.toggler:hover{
+    color:#22d1ff;
+}
+
+.s-first, .s-second{
+    padding: 5px 20px 0 15px;
+}
+
+.ui ul{
+    margin:0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui ul li + li{
+    margin-top: 10px;
+}
+
+.s-first ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #22d1f6;
+}
+
+.s-second ul li:first-child{
+    font-weight: 700;
+    color: gray;
+    font-size: 14px;
+}
+
+.s-second ul li a:hover{
+    color: #22d1f6;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.xett{
+    border-bottom: 1px solid #c3c6c9;
+    width: 100%;
+    margin: 15px 0;
+}
+.second-side{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    animation: from-right 2s;
+    animation-play-state: paused;
+    top: 0;
+    left: 0;
+}
+
+.s-second ul li a, #back{
+    color:black;
+    transition: all 0.15s linear;
+    text-decoration: none;
+}
+.for-more-click, #back{
+    font-size: 16px;
+}
+
+.for-more-click:hover, #back:hover{
+    color: #22d1f6;
+    cursor: pointer;
+}
+@keyframes from-right{
+    0% {
+        left: 330px;
+    }
+    50%{
+        left: 0;
+    }
+    100%{
+      left: 330px;
+    }
+}
+
+.profile-text{
+    width: 40px;
+    height: 40px;
+    border: 1px solid transparent;
+    background-color: #22d1f6;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 700;
+}
+.pp{
+    position: relative;
+}
+
+.profile-tho{
+    width: 300px;
+    padding-bottom: 15px;
+    background-color: #fff;
+    position: absolute;
+    left: -250px;
+    top: 61px;
+    animation: tolong 0.3s;
+    animation-play-state: paused;
+    border: 1px solid #c3c6c9;
+    box-shadow: 0 0 10px #dce0e3;
+}
+
+.profile-img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.p-first{
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 0;
+}
+.p-first h2{
+    font-weight: bold;
+    font-size: 19px;
+    margin:15px 0 5px 0;
+}
+.p-first .mail{
+    color: #494b4d;
+    font-size: 12px;
+}
+.p-img-2{
+    width: 80px;
+    height: 80px;
+}
+.p-second{
+    width: 100%;
+    padding: 0 15px;
+}
+.p-second ul{
+    list-style: none;
+    margin: 0;
+    padding:0;
+}
+.p-second ul li + li {
+    margin-top: 8px;
+}
+
+.p-second ul li a {
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s linear;
+}
+.p-second ul li a:hover{
+    font-size: 14px;
+    color: #22d1f6;
+}
+
+.s-first-logged{
+    background-color: #fbfbf8;
+    margin-bottom: 15px;
+}
+.s-first-logged:hover{
+    cursor: pointer;
+}
+.p-img-3{
+    width: 65px;
+    height: 65px;
+}
+
+.ui.left.sidebar, .ui.right.sidebar {
+    width: 330px !important;
+    overflow-x: hidden !important;
+}
