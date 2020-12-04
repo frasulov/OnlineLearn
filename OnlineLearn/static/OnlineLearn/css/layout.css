@@ -443,3 +443,7 @@ html{
     width: 330px !important;
     overflow-x: hidden !important;
 }
+.ui.sidebar>* {
+-webkit-backface-visibility: visible !important;
+backface-visibility: visible !important;
+}
