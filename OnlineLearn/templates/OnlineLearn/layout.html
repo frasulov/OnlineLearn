@@ -44,13 +44,19 @@
             <div class="p-first" style="padding-bottom: 15px;">
                 <div class="row">
                     <div class="col-3" style="position: static;">
+                      {% if user.profile_image %}
                         <div class="profile-img p-img-3">
-                            <img src="https://images.pexels.com/photos/414628/pexels-photo-414628.jpeg?auto=compress&cs=tinysrgb&h=350" alt="">
+                            <img src="{{user.profile_pic.url}}" alt="">
                         </div>
+                        {% else %}
+                        <div class="profile-text p-img-3 d-flex justify-content-center align-items-center" style="font-size:30px">
+                        <span>{{user.first_name.0}}{{user.last_name.0}}</span>
+                        </div>
+                        {% endif %}
                     </div>
                     <div class="col-7" style="position: static;">
                         <h2 style="margin-top: 10px;">Hi, {{user.first_name}} {{user.last_name}}</h2>
-                        <div class="mail">{{user.username}}</div>
+                        <div class="mail">{{user.email}}</div>
                     </div>
                     <div class="col-1" style="position: static;">
                         <div class="d-flex align-items-center" style="height: 100%;padding-left: 13px;">
@@ -146,24 +152,32 @@
                             first thing
                         </div> -->
                         <div class="pp d-flex align-items-center ml-2">
-
-                            <!-- <div class="profile-text d-flex justify-content-center align-items-center">
-                                <span>FR</span>
-                            </div> -->
-                            <div class="profile-img">
-                                <img src="https://images.pexels.com/photos/414628/pexels-photo-414628.jpeg?auto=compress&cs=tinysrgb&h=350" alt="">
+                            {% if not user.profile_image%}
+                            <div class="profile-text d-flex justify-content-center align-items-center">
+                                <span>{{user.first_name.0}}{{user.last_name.0}}</span>
                             </div>
+                            {% else %}
+                            <div class="profile-img">
+                                <img src="{{user.profile_pic.url}}" alt="">
+                            </div>
+                            {% endif %}
                             <div class="profile-tho d-none">
                                 <div class="p-first">
                                     <div class="row">
                                         <div class="col-4">
+                                          {% if user.profile_image%}
                                             <div class="profile-img p-img-2">
-                                                <img src="https://images.pexels.com/photos/414628/pexels-photo-414628.jpeg?auto=compress&cs=tinysrgb&h=350" alt="">
+                                                <img src="{{user.profile_pic.url}}" alt="">
                                             </div>
+                                            {% else %}
+                                            <div class="profile-text p-img-2 d-flex justify-content-center align-items-center" style="font-size:32px">
+                                              <span>{{user.first_name.0}}{{user.last_name.0}}</span>
+                                            </div>
+                                            {% endif %}
                                         </div>
                                         <div class="col-8">
                                             <h2>{{user.first_name}} {{user.last_name}}</h2>
-                                            <div class="mail">{{user.username}}</div>
+                                            <div class="mail">{{user.email}}</div>
                                         </div>
                                     </div>
                                 </div>

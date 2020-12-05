@@ -4,7 +4,9 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from .models import *
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 # Create your views here.
 
 def index(request, message = None):
@@ -15,7 +17,7 @@ def login_view(request):
 
         email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, email=email, password=password)
 
         # Check if authentication successful
         if user is not None:
@@ -44,7 +46,7 @@ def register_view(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(email, email, password, first_name=firstname, last_name=lastname)
+            user = User.objects.create_user(email = email, password = password, first_name = firstname, last_name = lastname)
             user.save()
         except IntegrityError:
             return render(request, "OnlineLearn/register.html", {

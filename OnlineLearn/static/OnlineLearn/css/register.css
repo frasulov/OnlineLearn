@@ -8,7 +8,6 @@
 	margin-bottom: 30px;
 }
 
-
 .my-own-button{
 	font-size: 22px;
 	letter-spacing: 1px;
@@ -91,6 +90,17 @@
     color: #12b7e3;
 }
 
+.message{
+		width: 100%;
+		background-color: #faebeb;
+		color: #521822;
+		padding: 15px 15px 15px 25px;
+		font-size: 16px;
+		border: 1px solid transparent;
+		margin-bottom: 15px;
+}
+
+
 @media only screen and (max-width: 1140px) {
     .register{
         width: 70%;
@@ -103,4 +113,4 @@
         margin-left: 5%;
         margin-bottom: 30px;
     }
-  }
+}

@@ -6,6 +6,11 @@
 
 <div class="register">
 		<h2>Register</h2>
+		{% if message %}
+		<div class="message">
+			{{message}}
+		</div>
+		{% endif %}
 		<form action="{% url 'register' %}" method="post">
       {% csrf_token %}
             <div class="row">

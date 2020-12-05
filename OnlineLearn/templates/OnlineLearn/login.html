@@ -1,11 +1,17 @@
 {% extends "OnlineLearn/layout.html" %}
 {% load static %}
 {% block body %}
+
 <link rel="stylesheet" href="{% static '/OnlineLearn/css/login.css' %}">
 <script src="{% static '/OnlineLearn/js/login.js' %}"></script>
 
 <div class="login">
 		<h2>Login</h2>
+		{% if message %}
+		<div class="message">
+			{{message}}
+		</div>
+		{% endif %}
 		<form action="{% url 'login' %}" method="post">
       {% csrf_token %}
 			<div class="form-group">
@@ -27,4 +33,5 @@
 		</form>
 		<div class="no-account">You don't have an account? <a href="{% url 'register' %}">Sign up</a></div>
 </div>
+
 {% endblock %}
