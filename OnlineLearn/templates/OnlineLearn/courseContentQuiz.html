@@ -1,0 +1,164 @@
+{% extends "OnlineLearn/courseContentLayout.html" %}
+{% block content %}
+
+<div class="test-content">
+  {% if start %}
+      <div class="start-test">
+        {% if exam %}
+          {% if exam.submitted%}
+          <h3>You have finished the exam!</h3>
+          <ul>
+            <li>Your correct answer: {{exam.getNumberOfTightAnswers.1}} out of {{exam.quiz.questions.all.count}}</li>
+            <li>Your score: {{exam.getNumberOfTightAnswers.0}} out of {{exam.getTotalScore}}</li>
+          </ul>
+          {% else %}
+          <div class="desc">
+            <strong>Test Description: </strong>
+            {{quiz.description | safe }}
+          </div>
+          <p>The test has <strong>{{quiz.questions.all.count}}</strong> questions and time limit is <strong>{{quiz.time_in_minute}} min!</strong></p>
+            {% endif %}
+        {% else %}
+        <div class="desc">
+          <strong>Test Description: </strong>
+          {{quiz.description | safe }}
+        </div>
+        <p>The test has <strong>{{quiz.questions.all.count}}</strong> questions and time limit is <strong>{{quiz.time_in_minute}} min!</strong></p>
+        {% endif %}
+        <div class="start-btn">
+          {% if exam%}
+          {% if exam.submitted %}
+          <a href="{% url 'reviewExam' exam.id %}" target="_blank"><i class="fas fa-angle-right mr-2"></i>Review Test</a>
+          {% else %}
+          <a href="/course/{{course.id}}/content/{{lecture_id}}/startquiz"><i class="fas fa-angle-right mr-2"></i>Start Test</a>
+          {% endif %}
+          {% else %}
+          <a href="/course/{{course.id}}/content/{{lecture_id}}/startquiz"><i class="fas fa-angle-right mr-2"></i>Start Test</a>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <div class="started-test">
+          <div class="head" id="exam" data-examid="{{exam.id}}">
+              <div class="row" style='margin:0;padding:0;'>
+                <div class='col-12 col-md-4'>Question {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</div>
+                <div class='col-12 col-md-4 text-center my-2 my-md-0' id='time' data-time='{{exam.getFinishedTime}}'></div>
+                <div class='col-12 col-md-4 text-md-right'>
+                  <span id="save" class="">
+                     No Save
+                  </span>
+              </div>
+              </div>
+          </div>
+        {% for question in page_obj %}
+          <div class="question" id="question" data-questionid='{{question.id}}'>
+              Question - {{ page_obj.number }} ({{question.score}} points): {{question.text | safe}}
+              <div class="answer">
+                  {% for answer in question.answers.all %}
+                  <div class="form-check mt-4">
+                    <input class="form-check-input" type="radio" name="answers" id="answer-{{answer.id}}" value="{{answer.id}}">
+                    <label class="form-check-label" for="answer-{{answer.id}}">{{answer.text}}</label>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+          {% endfor %}
+          <div class="tail mt-4 mb-4">
+            <div class="row" style='margin:0;padding:0;'>
+              <div class='col-3'>
+              {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}"><i class="far fa-arrow-alt-circle-left mr-1"></i></a>
+              {% else %}
+              <a class="ummute"><i class="far fa-arrow-alt-circle-left mr-1"></i></a>
+              {% endif %}
+            </div>
+              <div class='col-6' style='text-align:center;'>
+              <a id="courseid" href="/course/{{course.id}}/submitexam/{{exam.id}}/lecture/{{lecture_id}}" data-courseid='{{course.id}}' data-lectureid='{{lecture_id}}'>Submit Test</a></div>
+              <div class='col-3' style='text-align:right'>
+              {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}"><i class="far fa-arrow-alt-circle-right ml-1"></i></a>
+              {% else %}
+              <a class="ummute"><i class="far fa-arrow-alt-circle-right ml-1"></i></a>
+              {% endif %}
+            </div>
+            </div>
+          </div>
+      </div>
+      {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let question_id = document.getElementById('question').dataset.questionid;
+      let exam_id = document.getElementById('exam').dataset.examid;
+      let answers = document.querySelectorAll(`input[type="radio"]`);
+      let save = document.getElementById('save');
+
+      fetch(`/exam/${exam_id}/question/${question_id}/check`)
+      .then(response => response.json())
+            .then(result => {
+                if (result.error){
+                  console.log(result.error)
+                }else{
+                  if(result.saved){
+                    document.getElementById(`answer-${result.saved_answer}`).checked = true
+                    save.innerHTML = 'Saved';
+                    save.classList.add('saved')
+                  }
+                }
+            })
+
+      answers.forEach(answer => {
+          answer.onclick = () => {
+            console.log(question_id, answer.value,exam_id);
+            fetch(`/exam/${exam_id}/question/${question_id}/answer/${answer.value}/saved`)
+            .then(response => response.json())
+            .then(result => {
+                if (result.error){
+                  console.log(result)
+                }else{
+                  console.log(result.result);
+                  save.innerHTML = 'Saved';
+                  save.classList.add('saved')
+                }
+            })
+          }
+      })
+      console.log(answers)
+
+      time = document.getElementById('time');
+      left_time = time.dataset.time;
+      var countDownDate = new Date(left_time).getTime();
+
+      let x = setInterval(function() {
+
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+        console.log(distance)
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        time.innerHTML = minutes + "min :" + seconds + "s";
+        if (minutes < 5){
+          time.style.color = 'red'
+
+        }
+
+
+        if (distance < 0) {
+          clearInterval(x);
+          time.innerHTML = "Submitting";
+          fetch(`/course/${document.getElementById('courseid').dataset.courseid}/submitexam/${exam_id}/lecture/${document.getElementById('courseid').dataset.lectureid}`)
+          .then(result => {
+            location.href = `/course/${document.getElementById('courseid').dataset.courseid}/content/${document.getElementById('courseid').dataset.lectureid}`
+          })
+        }
+
+      }, 1000);
+    })
+</script>
+
+{% endblock %}

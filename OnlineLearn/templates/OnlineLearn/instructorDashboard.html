@@ -1,0 +1,287 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+
+<!-- <link rel="stylesheet" href="{% static '/OnlineLearn/css/login.css' %}"> -->
+<!-- <script src="{% static '/OnlineLearn/js/login.js' %}"></script> -->
+<title>{% block title %}Instructor Dashboard - Online Learn{% endblock %}</title>
+<style>
+    #dashboard-open-page{
+        width: 90%;
+        margin: 50px 5%;
+    }
+    .line {
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 5px solid #172156;
+        padding-bottom: 10px;
+        width: 150px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    #dashboard-open-page img{
+        height: 100%;
+        width: 100%;
+        max-height: 200px;
+    }
+    @media only screen and (max-width: 960px) {
+        #dashboard-open-page img{
+        max-height: 100%;
+    }
+        }
+    .title{
+        font-weight: bold;
+        font-size: 16px;
+        margin:0;
+        margin-top: 10px;
+        min-height: 41px;
+        color: black;
+    }
+    .list-detail{
+        list-style: none;
+        margin:0;
+        padding:0;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .list-detail span {
+        font-weight: bold;
+    }
+    .my-own-button{
+	font-size: 14px;
+	border:none;
+	border: 1px solid transparent;
+    /* width: 100%; */
+    margin-right: 10px;
+	background-color: #172156;
+	border-radius: 7px;
+	padding: 5px 10px;
+	font-weight: 500;
+    color: #fff;
+    text-decoration: none !important;
+}
+.my-own-button:hover{
+	color: #172156;
+	border-color: #172156;
+	background-color: white;
+}
+.del-button{
+    background-color: red;
+}
+.del-button:hover{
+    color:red;
+    border-color: red;;
+}
+.course{
+    border: 1px solid #c3c6c9;
+    box-shadow: 0 -10px 10px -10px #dce0e3,
+    0 10px 10px -10px #dce0e3,
+    -10px 0 10px -10px #dce0e3;
+}
+.crt{
+    margin-top: 30px;
+}
+.crt h2{
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+.my-input-field:focus{
+	outline: none;
+	box-shadow: none;
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
+}
+.input-f{
+	border: none;
+	outline: none;
+	border-radius: 0.25rem;
+	width: 100%;
+	height: 100%;
+	padding: .375rem .75rem;
+	color: #495057;
+	line-height: 1.5;
+	background-clip: padding-box;
+}
+.focussed{
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
+}
+</style>
+
+<div id="dashboard-open-page">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="created-courses-tab" style="color:black" data-toggle="tab" href="#created-courses" role="tab" aria-controls="created-courses" aria-selected="true">Created Courses</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="create-course-tab" data-toggle="tab" href="#create-course" role="tab" aria-controls="create-course" aria-selected="false">Create New Course</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="created-courses" role="tabpanel" aria-labelledby="created-courses-tab">
+            <div class="row">
+                {% for course in courses %}
+                <div class="col-12 col-xl-6 mt-4">
+                    <div class="course">
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <img src="{{course.image.url}}" alt="">
+                            </div>
+                            <div class="col-12 col-md-7 pl-4 pl-md-0">
+                                <h2 class="title">{{course.title}}</h2>
+                                <ul class="list-detail">
+                                    <li><span>Language</span>: {{course.language}}</li>
+                                    <li><span>Category</span>: {{course.category}}</li>
+                                    <li><span>Sub Category</span>: {{course.sub_category}}</li>
+                                    <li><span>Pubhlished</span>:
+                                    {% if course.pubhlished %}
+                                    Yes
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                                    </li>
+                                </ul>
+                                <div style="width: 100%;" class="d-flex justify-content-end mb-2">
+                                    <a class="my-own-button" href="{% url 'addcontent' course.id %}">Edit Content</a>
+                                    <a class="my-own-button" target="_blank" href="/course/{{course.id}}/content/0">Student View</a>
+                                    <a class="my-own-button del-button" href="{% url 'deletecourse' course.id %}">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="create-course" role="tabpanel" aria-labelledby="create-course-tab">
+            <div class="crt">
+                <h2>Create Course</h2>
+                <form action="{% url 'instructorDashboard' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                              <div class="col-12 col-lg-6">
+                                  <div class="form-group">
+                                      <label for="title">Title</label>
+                                      <input id="title" class="form-control my-input-field" type="text" placeholder="Add title" name="title" required>
+                                  </div>
+                              </div>
+                              <div class="col-12 col-lg-6">
+                                  <div class="form-group">
+                                      <label for="price">Price</label>
+                                      <input id="price" class="form-control my-input-field" type="number" min="0" value="0" placeholder="" name="price" required>
+                                  </div>
+                              </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group">
+                            <label for="subtitle">Subtitle</label>
+                            <input type="text" class="form-control my-input-field" required name="subtitle" placeholder="Subtitle">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="i-category" class="form-control my-input-field" name="category" required>
+                                    <option selected disabled>--- Please choose Category ---</option>
+                                    {% for category in categories %}
+                                    <option value="{{category.id}}">{{category.text}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                          <div class="col-12 col-lg-6">
+                              <div class="form-group">
+                                  <label>Sub Category</label>
+                                  <select id="i-subcategory" class="form-control my-input-field" name="subcategory" required>
+                                    <option selected disabled>--- Please choose sub Category ---</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label >Language</label>
+                                <select class="form-control my-input-field" name="language" required>
+                                  <option selected disabled>--- Please choose Language ---</option>
+                                    {% for language in languages %}
+                                    <option value="{{language.id}}">{{language.text}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                          <div class="form-group">
+                              <label for="image" style="display: block;">Course Image</label>
+                              <input accept=".gif,.jpg,.jpeg,.png" type="file" name="course_image">
+                          </div>
+                        </div>
+                              <div class="col-12">
+                                <div class="form-group">
+                                    <label for="desc">Biography</label>
+                                    <textarea name="descripton" id="desc" class="form-control my-input-field" rows="7" placeholder="Descripiton"></textarea>
+                                </div>
+                              </div>
+                        </div>
+                          <div style="width: 100%;" class="d-flex justify-content-center">
+                            <!-- <input type="submit" class="my-own-button" style="padding: 5px 20px;" value="Create and Continue to add content"> -->
+                            <button type="submit" class="my-own-button" style="padding: 5px 20px">Create and Continue to add content</button>
+                          </div>
+                      </form>
+            </div>
+        </div>
+      </div>
+</div>
+
+
+<script>
+    tinymce.init({
+    selector: 'textarea',
+    menubar: false,
+    font_size_classes : "fontSize1, fontSize2, fontSize3, fontSize4, fontSize5, fontSize6",
+    plugins: 'bold italic link linkchecker lists tinymcespellchecker',
+    toolbar: 'spellchecker link bold italic numlist bullist fontselect fontsizeselect',
+    setup: function (editor) {
+      editor.on('init', function (e) {
+        editor.setContent("");
+      });
+    },
+    toolbar_mode: 'floating',
+    spellchecker_language: 'en',
+    spellchecker_dialog: true,
+    content_css: [
+      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      '//www.tinymce.com/css/codepen.min.css']
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+        let sub = document.getElementById('i-subcategory');
+        let category = document.getElementById('i-category');
+
+        category.onchange = () => {
+            fetch(`/category/${category.value}`)
+            .then(response => response.json())
+            .then(result => {
+                sub.innerHTML = ''
+                opt = document.createElement('option')
+                opt.innerHTML = '--- Please choose sub Category ---'
+                opt.selected = true;
+                opt.disabled = true
+                sub.append(opt)
+                result.subcategories.forEach(category => {
+                    opt = document.createElement('option')
+                    opt.value = category.id
+                    opt.innerHTML = category.text
+                    sub.append(opt)
+                })
+            })
+        }
+    })
+
+</script>
+
+{% endblock %}

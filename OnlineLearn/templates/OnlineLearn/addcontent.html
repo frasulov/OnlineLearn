@@ -1,0 +1,452 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+<title>{% block title %}Add Content - Online Learn{% endblock %}</title>
+</script>
+<style>
+
+    .content{
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 50px;
+    }
+    @media only screen and (max-width: 576px) {
+        .content{
+        width: 100%;
+        margin-left: 0%;
+    }
+    .section{
+        margin:0 !important;
+    }
+}
+    .section{
+        width: 100%;
+        padding: 20px;
+        background-color: #d3dee8;
+        border: 1px solid #c3c6c9;
+        margin: 20px 0;
+    }
+    .section-name{
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .trash{
+        background-color: transparent;
+        border: none;
+        color: red;
+    }
+    .lecture{
+        margin-top: 20px;
+        background-color: #fff;
+        width: 100%;
+        padding:20px;
+        border: 1px solid #c3c6c9;
+
+    }
+    .my-own-button{
+    text-decoration: none !important;
+	font-size: 22px;
+	letter-spacing: 1px;
+	border:none;
+	border: 1px solid transparent;
+	width: 100%;
+	background-color: #172156;
+	border-radius: 7px;
+	padding: 7px 0;
+	font-weight: 500;
+	color: #fff;
+}
+.my-own-button:hover{
+	color: #172156;
+	border-color: #172156;
+	background-color: white;
+}
+
+.add-lecture{
+    color: black;
+    font-weight: bold;
+    border: 3px dashed #172156;
+    background-color: transparent;
+    padding: 5px 30px;
+    margin-top: 10px;
+}
+.add-lecture:hover{
+    background-color: #172156;
+    color:white
+}
+
+
+.my-input-field:focus{
+	outline: none;
+	box-shadow: none;
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
+
+}
+
+.question-zz{
+    width: 100%;
+    border: 1px solid #c3c6c9;
+    background-color: #d3dee8;
+    padding:20px;
+    margin-top: 20px;
+}
+.urgent-comment{
+    font-weight: bold;
+    color: red;
+    font-size: 15px;
+}
+
+</style>
+
+
+<div class="content">
+    <div class="d-flex justify-content-between">
+        <a class="my-own-button mb-3 text-center" href="{% url 'instructorDashboard' %}" style="width: 300px;">Back to Dashboard</a>
+        <a class="my-own-button mb-3 text-center" target="_blank" href="/course/{{course.id}}/content/0" style="width: 200px;">Student View</a>
+    </div>
+    {% for section in course.content.all%}
+
+    <div class="accordion" id="accordion-{{section.id}}">
+        <div class="card">
+          <div class="card-header" id="heading-{{section.id}}">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-{{section.id}}" aria-expanded="true" aria-controls="collapse-{{section.id}}">
+                Section {{ forloop.counter }}: {{section.text}}
+              </button>
+            </h2>
+          </div>
+          <div id="collapse-{{section.id}}" class="collapse" aria-labelledby="heading-{{section.id}}" data-parent="#accordion-{{section.id}}">
+            <div class="card-body">
+
+                <section class="section">
+                    <div class="section-name">Section {{ forloop.counter }}: <a href="/course/{{course.id}}/deletesection/{{section.id}}" class="trash"><i class="fas fa-trash-alt"></i></a></div>
+                    <form action="/course/{{course.id}}/editsection/{{section.id}}" method="POST">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-12 col-lg-10">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" value="{{section.text}}">
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-2">
+                                <button class="my-own-button" title="It will Edit Only Section Name">Edit section</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    {% for lecture in section.lecture.all %}
+
+
+                    <div class="accordion" id="accordionExample-l-{{section.id}}-{{lecture.id}}">
+                        <div class="card">
+                          <div class="card-header" id="headingOne-l-{{section.id}}-{{lecture.id}}">
+                            <h2 class="mb-0">
+                              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne-l-{{section.id}}-{{lecture.id}}" aria-expanded="false" aria-controls="collapseOne-l-{{section.id}}-{{lecture.id}}">
+                                Lecture {{ forloop.counter }}: {{lecture.text}}
+                              </button>
+                            </h2>
+                          </div>
+
+                          <div id="collapseOne-l-{{section.id}}-{{lecture.id}}" class="collapse" aria-labelledby="headingOne-l-{{section.id}}-{{lecture.id}}" data-parent="#accordionExample-l-{{section.id}}-{{lecture.id}}">
+                            <div class="card-body">
+                                {% if lecture.type == '0'%}
+                        <div class="lecture">
+                            <div class="section-name">Lecture {{ forloop.counter }} (Type - Video): <a href="/course/{{course.id}}/deletelecture/{{lecture.id}}" class="trash"><i class="fas fa-trash-alt"></i></a></div>
+                                <form action="/course/{{course.id}}/editlecture/{{lecture.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="lec_text">Lecture name</label>
+                                        <input id="lec_text" type="text" name="name" value="{{lecture.text}}" class="form-control my-input-field" placeholder="Lecture Name">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-10">
+                                            <div class="form-group">
+                                                <label for="video_id">Video id</label>
+                                                <input type="text" id="video_id" name="videoid" class="form-control my-input-field" placeholder="Video id" value="{{lecture.video_link}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-2">
+                                            <label for="">&nbsp;</label>
+                                            <button class="my-own-button" title="It will edit lecture name and video_id">Edit Lecture</button></div>
+                                    </div>
+                                </form>
+                            </div>
+                        {% elif lecture.type == '2' %}
+                        <div class="lecture">
+                            <div class="section-name">Lecture {{ forloop.counter }} (Type - Information): <a href="/course/{{course.id}}/deletelecture/{{lecture.id}}" class="trash"><i class="fas fa-trash-alt"></i></a></div>
+                                <form action="/course/{{course.id}}/editlecture/{{lecture.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="text" name="name" value="{{lecture.text}}" class="form-control my-input-field" placeholder="Lecture Name">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <textarea name="information" class="form-control my-input-field" placeholder="Information" required>
+                                                        {{lecture.information}}
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="my-own-button" title="It will edit lecture name and information">Edit Lecture</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% else %}
+                        <div class="lecture">
+                            <div class="section-name">Lecture {{ forloop.counter }} (Type - Quiz): <a href="/course/{{course.id}}/deletelecture/{{lecture.id}}" class="trash"><i class="fas fa-trash-alt"></i></a></div>
+                                <form action="/course/{{course.id}}/editlecture/{{lecture.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="text" name="name" value="{{lecture.text}}" class="form-control my-input-field" placeholder="Lecture Name">
+                                    </div>
+                                    <div class="form-gruop">
+                                        <label for="qtitle">Quiz Title</label>
+                                        <input type="text" class="form-control my-input-field" name='title' placeholder="Title" value="{{lecture.quiz.all.first.title}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="question">Quiz Desciprion</label>
+                                        <textarea required name="description" style="height: 400px;" class="form-control">
+                                           {{lecture.quiz.all.first.description}}
+                                        </textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="time">Time</label>
+                                                <input id="time" type="number" name="time" class="form-control" id="" value="{{lecture.quiz.all.first.time_in_minute}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-3">
+                                            <label for="">&nbsp;</label>
+                                            <button class="my-own-button" title="It will Edit lecture name, quiz - title, description and time">Edit Lecture</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <h2><center>Questions</center></h2>
+                                {% for question in lecture.quiz.all.first.questions.all%}
+
+                                <form action="">
+                                    <div class="accordion" id="accordion-s{{section.id}}-l{{lecture.id}}-q{{question.id}}">
+                                        <div class="card">
+                                        <div class="card-header" id="heading-s{{section.id}}-l{{lecture.id}}-q{{question.id}}">
+                                            <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse-s{{section.id}}-l{{lecture.id}}-q{{question.id}}" aria-expanded="false" aria-controls="collapse-s{{section.id}}-l{{lecture.id}}-q{{question.id}}">
+                                                Question {{ forloop.counter }}
+                                            </button>
+                                            </h2>
+                                        </div>
+
+                                        <div id="collapse-s{{section.id}}-l{{lecture.id}}-q{{question.id}}" class="collapse" aria-labelledby="heading-s{{section.id}}-l{{lecture.id}}-q{{question.id}}" data-parent="#accordion-s{{section.id}}-l{{lecture.id}}-q{{question.id}}">
+                                            <div class="card-body">
+                                                <div class="question-zz">
+                                                    <div class="form-group">
+                                                        <label for="question">Question {{ forloop.counter }}.</label>
+                                                        <textarea name="information" id="question" class="form-control my-input-field" rows="7" placeholder="Question" required>
+                                                            {{question.text | safe}}
+                                                        </textarea>
+                                                        {% for answer in question.answers.all %}
+                                                        <div class="row mt-3">
+                                                            <div class="col-2">
+                                                                <div class="form-check">
+                                                                    {% if answer.is_true %}
+                                                                    <input class="form-check-input" type="radio" name="question-{{question.id}}" id="answer-{{answer.id}}" value="answer-{{answer.id}}" checked>
+                                                                    {% else %}
+                                                                    <input class="form-check-input" type="radio" name="question-{{question.id}}" id="answer-{{answer.id}}" value="answer-{{answer.id}}">
+                                                                    {% endif %}
+                                                                    <label class="form-check-label" for="answer-{{answer.id}}">
+                                                                        Correct Answer
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-10">
+                                                                <div class="form-group">
+                                                                    <input type="text" class="form-control" value="{{answer.text}}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                 {% endfor %}
+                                 <form class='mt-3' action="/course/{{course.id}}/addquestion/{{lecture.quiz.all.first.id}}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="question">New Question</label>
+                                        <textarea name="text" id="question" class="form-control my-input-field" placeholder="Add Question" required>
+
+                                        </textarea>
+                                    </div>
+                                    <div id="answer-qwe">
+                                        <div class="urgent-comment">You can add max 4 answer to question. If you add answer to add answer text field, it will be added to question! Please do not choose radio button that you do not add answer!</div>
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="correct-answer" id="answer-s{{section.id}}-l{{lecture.id}}-q1" value="1">
+                                                    <label class="form-check-label" for="answer-s{{section.id}}-l{{lecture.id}}-q1">
+                                                        Make it correct
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="answer-1" placeholder="Add answer">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="correct-answer" id="answer-s{{section.id}}-l{{lecture.id}}-q2" value="2">
+                                                    <label class="form-check-label" for="answer-s{{section.id}}-l{{lecture.id}}-q2">
+                                                        Make it correct
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="answer-2" placeholder="Add answer">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="correct-answer" id="answer-s{{section.id}}-l{{lecture.id}}-q3" value="3">
+                                                    <label class="form-check-label" for="answer-s{{section.id}}-l{{lecture.id}}-q3">
+                                                        Make it correct
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="answer-3" placeholder="Add answer">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="correct-answer" id="answer-s{{section.id}}-l{{lecture.id}}-q4" value="4">
+                                                    <label class="form-check-label" for="answer-s{{section.id}}-l{{lecture.id}}-q4">
+                                                        Make it correct
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="answer-4" placeholder="Add answer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="q-score">Score</label>
+                                        <input id='q-score' type="number" min='0' value="0" name='score' placeholder="Score" class="form-control" required>
+                                    </div>
+                                    <button class="my-own-button">Add Question</button>
+                                 </form>
+                        </div>
+                        {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    {% endfor %}
+                    <div class="lecture">
+                        <form action="/course/{{course.id}}/addlecture/{{section.id}}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="section-name">New Lecture</div>
+                                <label>Lecture Type</label>
+                                    <select name="type" id="type" class="form-control" required>
+                                        <option disabled selected>-- Choose Lecture Type --</option>
+                                        <option value="0">Video</option>
+                                        <option value="2">Information</option>
+                                        <option value="1">Quiz</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-lg-10">
+                                        <div class="form-group">
+                                            <label for="lec-name">Lecture Name</label>
+                                            <input id="lec-name" type="text" class="form-control my-input-field" placeholder="Lecture Name" name="name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-21 col-lg-2">
+                                        <label for="">&nbsp;</label>
+                                        <button class="my-own-button">Create Lecture</button>
+                                    </div>
+                                </div>
+                        </form>
+                </div>
+                </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    <section class="section">
+        <div class="section-name">New Section</div>
+        <form action="{% url 'addcontent' course.id %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-12 col-lg-10">
+                    <div class="form-group">
+                        <label for="sec-name">Section Name</label>
+                        <input id="sec-name" type="text" class="form-control my-input-field" placeholder="Section Name" name="name" required>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-2">
+                    <label class="d-none d-lg-block">&nbsp;</label>
+                    <button class="my-own-button">Create Section</button>
+                </div>
+            </div>
+        </form>
+
+    </section>
+</div>
+
+<script>
+    tinymce.init({
+    selector: 'textarea',
+    menubar: false,
+    plugins: 'bold italic link codesample advcode casechange linkchecker autolink lists checklist media mediaembed pageembed powerpaste table advtable tinymcespellchecker',
+    toolbar: 'spellchecker link codesample bold italic numlist bullist casechange checklist code pageembed table',
+    codesample_languages: [
+    { text: 'HTML/XML', value: 'markup' },
+    { text: 'JavaScript', value: 'javascript' },
+    { text: 'CSS', value: 'css' },
+    { text: 'PHP', value: 'php' },
+    { text: 'Ruby', value: 'ruby' },
+    { text: 'Python', value: 'python' },
+    { text: 'Java', value: 'java' },
+    { text: 'C', value: 'c' },
+    { text: 'C#', value: 'csharp' },
+    { text: 'C++', value: 'cpp' }
+  ],
+    toolbar_mode: 'floating',
+    spellchecker_language: 'en',
+    spellchecker_dialog: true,
+    content_css: [
+      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+      '//www.tinymce.com/css/codepen.min.css']
+  });
+</script>
+
+{% endblock %}

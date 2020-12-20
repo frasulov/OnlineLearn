@@ -14,15 +14,15 @@
 	border:none;
 	border: 1px solid transparent;
 	width: 100%;
-	background-color: #22d1ff;
+	background-color: #172156;
 	border-radius: 7px;
 	padding: 7px 0;
 	font-weight: 500;
 	color: #fff;
 }
 .my-own-button:hover{
-	color: #22d1ff;
-	border-color: #22d1ff;
+	color: #172156;
+	border-color: #172156;
 	background-color: white;
 
 }
@@ -30,8 +30,8 @@
 .my-input-field:focus{
 	outline: none;
 	box-shadow: none;
-	border-color: #22d1ff;
-	box-shadow: 0 0 1.5px 1.5px #22d1f6;
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
 }
 
 .t-password{
@@ -62,8 +62,8 @@
 }
 
 .focussed{
-	border-color: #22d1ff;
-	box-shadow: 0 0 1.5px 1.5px #22d1f6;
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
 }
 
 .register{
@@ -82,7 +82,7 @@
 }
 .no-account a{
     text-decoration: none;
-    color: #22d1ff;
+    color: #172156;
     font-weight: 500;
     transition: color 0.1s linear;
 }

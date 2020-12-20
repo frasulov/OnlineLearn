@@ -1,0 +1,18 @@
+.reviewexam{
+  width: 70%;
+  margin-left: 15%;
+}
+
+@media only screen and (max-width: 920px) {
+  .reviewexam{
+    width: 95%;
+    margin-left: 2.5%;
+  }
+}
+
+.question {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #d6d6d6;
+}

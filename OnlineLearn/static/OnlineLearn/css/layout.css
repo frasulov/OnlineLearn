@@ -20,7 +20,7 @@ html{
     font-size: 14px;
 }
 .toblue{
-    color: #22d1f6;
+    color: #172156;
 }
 
 .inside{
@@ -35,6 +35,7 @@ html{
     -10px 0 10px -10px #dce0e3;
     animation: tolong 0.3s;
     animation-play-state: paused;
+		z-index: 1000 !important;
 }
 .inside, .double-inside{
     font-size: 14px;
@@ -47,6 +48,12 @@ html{
     padding: 0;
     margin: 0;
 }
+#firstone, #secondone{
+    font-weight: bold;
+}
+#firstone:hover, #secondone:hover{
+    color:black;
+}
 .inside ul li{
     display: flex;
     width: 100%;
@@ -58,8 +65,19 @@ html{
     padding-top: 15px;
 }
 .inside ul li:hover{
-    color: #22d1f6;
+    color: #172156;
 }
+
+#fetching-sub-category li a{
+    transition: color 0.1s linear;;
+    color: black;
+}
+
+#fetching-sub-category li a:hover{
+	text-decoration: none;
+    color: #172156;
+}
+
 .double-inside{
     background-color: #fff;
     position: absolute;
@@ -73,6 +91,7 @@ html{
     top:-1px;
     animation: tolong 0.3s;
     animation-play-state: paused;
+		z-index: 1000 !important;
 }
 
 .my-nav{
@@ -135,6 +154,8 @@ html{
 .next{
     position: absolute;
     width: 600px;
+		max-height: 350px;
+		overflow-y: scroll;
     background-color: #fff;
     border: 1px solid #c3c6c9;
     top: 55px;
@@ -143,6 +164,7 @@ html{
     font-size: 14px;
     animation-name: tolong;
     animation-duration: 0.5s;
+		z-index: 1000 !important;
 }
 
 .next ul{
@@ -156,37 +178,43 @@ html{
 .next ul li i {
     font-size: 12px;
 }
-.next ul li span {
-    margin-left: 15px;
+.s-result{
+	margin-left: 15px;
+	color: black;
+}
+
+.s-result:hover{
+	text-decoration: none;
+	color: #172156;
 }
 
 .my-btn{
     font-size: 16px;
     letter-spacing: 0.5px;
-	border: 1px solid #22d1ff;
+	border: 1px solid #172156;
 	background-color: #fff;
 	border-radius: 7px;
 	padding: 5px 30px;
 	font-weight: 500;
-    color: #22d1ff;
+    color: #172156;
     height: auto;
     transition: all 0.2s linear;
 }
 .my-btn:hover{
 	color: #fff;
 	border-color: transparent;
-    background-color: #22d1ff;
+    background-color: #172156;
     text-decoration: none;
 }
 .my-reverse-btn{
     padding: 5px 25px;
     border: 1px solid transparent;
-    background-color: #22d1ff;
+    background-color: #172156;
     color: #fff;
 }
 .my-reverse-btn:hover{
-    border-color: #22d1ff;
-    color: #22d1ff;
+    border-color: #172156;
+    color: #172156;
     background-color:#fff;
 }
 .right-side{
@@ -266,13 +294,13 @@ html{
 }
 
 .toggler{
-    background-color: #fff;
+    background-color: #f8f9fa;
     border:none;
     font-size: 24px;
     transition: all 0.2s linear;
 }
 .toggler:hover{
-    color:#22d1ff;
+    color:#172156;
 }
 
 .s-first, .s-second{
@@ -289,10 +317,10 @@ html{
     margin-top: 10px;
 }
 
-.s-first ul li a {
+.s-first ul li a{
     text-decoration: none;
     font-size: 16px;
-    color: #22d1f6;
+    color: #172156;
 }
 
 .s-second ul li:first-child{
@@ -302,7 +330,7 @@ html{
 }
 
 .s-second ul li a:hover{
-    color: #22d1f6;
+    color: #172156;
     cursor: pointer;
     text-decoration: none;
 }
@@ -333,7 +361,7 @@ html{
 }
 
 .for-more-click:hover, #back:hover{
-    color: #22d1f6;
+    color: #172156;
     cursor: pointer;
 }
 @keyframes from-right{
@@ -352,7 +380,7 @@ html{
     width: 40px;
     height: 40px;
     border: 1px solid transparent;
-    background-color: #22d1f6;
+    background-color: #172156;
     border-radius: 50%;
     color: #fff;
     font-weight: 700;
@@ -372,6 +400,7 @@ html{
     animation-play-state: paused;
     border: 1px solid #c3c6c9;
     box-shadow: 0 0 10px #dce0e3;
+		z-index: 1000 !important;
 }
 
 .profile-img{
@@ -398,6 +427,7 @@ html{
 .p-first .mail{
     color: #494b4d;
     font-size: 12px;
+		overflow-x: hidden;
 }
 .p-img-2{
     width: 80px;
@@ -424,7 +454,7 @@ html{
 }
 .p-second ul li a:hover{
     font-size: 14px;
-    color: #22d1f6;
+    color: #172156;
 }
 
 .s-first-logged{
@@ -446,4 +476,57 @@ html{
 .ui.sidebar>* {
 -webkit-backface-visibility: visible !important;
 backface-visibility: visible !important;
+}
+
+.nav-brand-phone{
+	font-family: Fantasy, sans-serif;
+	color: #172156;
+	font-weight: bold;
+}
+.nav-brand-phone:hover{
+	text-decoration: none;
+	color: #172156;
+}
+
+#s-phone-btn, #close-phone{
+	background-color: transparent;
+	border:none;
+}
+#search-phone{
+	width: 100%;
+	height: 61px;
+	padding: 0 25px;
+	position: absolute;
+	top:0;
+	left:0;
+	background-color: white;
+}
+#my-phone-input{
+	border:none;
+	outline: none;
+}
+#my-phone-input:focus{
+	border:none;
+	outline:none;
+}
+.search_phone_result{
+		border-top: 1px solid #c3c6c9;
+		border-bottom: 1px solid #c3c6c9;
+		padding: 10px 25px;
+		width: 100%;
+		max-height: 400px;
+		overflow-y: scroll;
+		position: absolute;
+		left:0;
+		top:61px;
+		background-color: #fff;
+		z-index: 1001;
+}
+#phone-res{
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+#phone-res li + li {
+	margin-top: 6px;
 }

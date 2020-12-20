@@ -1,0 +1,129 @@
+.my-extra-css{
+  padding: 40px 150px !important;
+  background-color: #29303b!important;
+  color: white;
+}
+
+.my-extra-css h2{
+  font-size: 38px;
+  margin: 0 0 10px 0;
+  color: #fff;
+}
+
+.my-extra-css .header{
+    margin: 0;
+    padding: 0;
+}
+
+.img{
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+}
+.img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.img-text {
+  border-radius: 50%;
+  width: 190px;
+  height: 190px;
+  font-size: 66px;
+  font-weight: bold;
+  background-color: #22d1ff;
+  color: #fff;
+}
+
+.d-text{
+  margin-top: 15px;
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.enrolled-course{
+  margin-top: 50px;
+  padding: 20px 150px;
+  width: 100%;
+  min-height: 320px;
+  background-color: #f7f8fa;
+}
+
+.enrolled-course p {
+  text-align: center;
+  margin: 0;
+}
+
+.profile-info{
+  width: 66%;
+  margin-left: 17%;
+  margin-top: 35px;
+}
+
+@media only screen and (max-width: 770px) {
+  .profile-info{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 35px;
+  }
+  .my-extra-css{
+    padding-left: 20px !important;
+    padding-right: 0 !important;
+  }
+  .responsible{
+    display: flex;
+    justify-content: center;
+  }
+  .enrolled-course{
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  .profile-info{
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 35px;
+  }
+}
+.courses_image{
+  width: 100%;
+  height: 174px;
+}
+.courses_image img{
+  width: 100%;
+  height: 100%;
+}
+.title-link{
+  color: #000;
+  text-decoration: none;
+}
+.title-link:hover{
+  color: #000;
+}
+.item{
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+  }
+    .courses_details p{
+    margin-top: 5px;
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 550;
+    }
+    .created{
+    color: #9c9a9a;
+    font-size: 12px;
+    font-weight: 150;
+    }
+    .free{
+    background-color:#f7d97e;
+    color:#735600;
+    width: 50px;
+    font-weight: 500;
+    padding-left: 7px;
+    border-radius: 3px;
+}

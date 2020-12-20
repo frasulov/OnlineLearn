@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     hide_or = document.getElementById('hide-or');
     c_hide_or = document.getElementById('c-hide-or');
     p_message = document.getElementById('p-message');
+
+
     pass_in.onfocus = () => {
         b_div.classList.add('focussed')
     }
@@ -44,4 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
             c_hide_or.classList.add('fa-eye');
         }
     }
+
+
 })

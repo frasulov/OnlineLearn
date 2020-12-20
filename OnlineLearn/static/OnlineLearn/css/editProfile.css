@@ -1,0 +1,62 @@
+.editProfile{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 40px;
+  padding-bottom: 50px;
+}
+
+.editProfile h2{
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 80px;
+}
+
+.my-own-button{
+	font-size: 22px;
+	letter-spacing: 1px;
+	border:none;
+	border: 1px solid transparent;
+	width: 100%;
+	background-color: #172156;
+	border-radius: 7px;
+	padding: 7px 0;
+	font-weight: 500;
+	color: #fff;
+}
+.my-own-button:hover{
+	color: #172156;
+	border-color: #172156;
+	background-color: white;
+
+}
+
+.my-input-field:focus{
+	outline: none;
+	box-shadow: none;
+	border-color: #172156;
+	box-shadow: 0 0 1.5px 1.5px #172156;
+}
+.form-1{
+  width: 60%;
+  margin-left: 20%;
+}
+
+@media only screen and (max-width: 1140px) {
+    .form-1{
+        width: 70%;
+        margin-left: 15%;
+    }
+  }
+  @media only screen and (max-width: 576px) {
+    .form-1{
+        width: 94%;
+        margin-left: 3%;
+    }
+}
+
+.comment{
+	font-size: 12px;
+	color: #495057;
+	opacity: 0.8;
+	margin-left: 3px;
+}

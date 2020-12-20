@@ -1,0 +1,136 @@
+body{
+	margin: 0;
+}
+.grey{
+	background-color: #172156;
+	width: 100%;
+  padding-top: 60px;
+	padding-bottom: 60px;
+	padding-left: 10%;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-bottom: 80px;
+}
+.results{
+	font-weight: 600;
+	font-size:20px;
+	color: #fff;
+}
+.first{
+	width: 80%;
+	margin-left: 10%;
+}
+.first .row div:first-child{
+  height: 154px;
+}
+@media only screen and (max-width: 960px) {
+  .first .row div:first-child{
+    height: auto;
+  }
+}
+
+.first_img{
+	width:100%;
+  height: 100%;
+	border-radius: 3%;
+}
+.first_p{
+	margin: 0px;
+}
+.first_p a{
+	color: black;
+}
+.first_p a:hover{
+	color: #000;
+}
+.first_span{
+	color: #3b5c94;
+}
+.free{
+    background-color:#f7d97e;
+    color:#735600;
+    width: 50px;
+    font-weight: 500;
+    padding-left: 7px;
+    border-radius: 3px;
+}
+.hr1{
+  display: block;
+	 margin-top: 2%;
+    width: 80%;
+    margin-left: 10%;
+    height: 1px;
+}
+
+.item{
+	width: 100%;
+	height: 250px;
+	background-color: white;
+    padding: 0px;
+    margin: 0px;
+}
+.courses_details p{
+    margin-top: 5px;
+    ~font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 550;
+}
+.created{
+    color: #9c9a9a;
+    font-size: 12px;
+    font-weight: 150;
+}
+.cs{
+    width: 80%;
+    margin-left: 10%;
+}
+.cat{
+	font-size: 40px;
+  line-height: 1.2;
+	color:#3b5c94;
+	margin-top:2;
+	margin-bottom:10px;
+}
+.my-pag{
+	width: 100%;
+	margin-top: 30px;
+  margin-bottom: 30px;
+}
+.my-pag a{
+	width: 40px;
+	height: 40px;
+	border: 1px solid #172156;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	color: #172156;
+	transition: all 0.2s linear;
+}
+.my-pag a:hover{
+	text-decoration: none;
+	color: #fff;
+	background-color: #172156;
+}
+.my-pag a +a{
+	margin-left: 20px;
+}
+.owl-carousel .owl-stage{
+  margin-bottom: 60px !important;
+}
+
+.courses_image{
+  width: 100%;
+  height: 174px;
+}
+.courses_image img{
+  width: 100%;
+  height: 100%;
+}
+.title-link{
+  color: #000;
+  text-decoration: none;
+}
+.title-link:hover{
+  color: #000;
+}

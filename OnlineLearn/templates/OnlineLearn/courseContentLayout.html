@@ -1,0 +1,149 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+<title>{% block title %}{{course.title}} - Online Learn{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'OnlineLearn/css/courseContent.css' %}">
+<script src="{% static '/OnlineLearn/js/courseContentLayout.js' %}"></script>
+
+<section id='main'>
+    <div class="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <nav>
+           <div class="nav nav-tabs" id="nav-tab" role="tablist">
+             <a class="nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Q&A</a>
+           </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div id="qa" data-course="{{course.id}}">
+                    <div id="askquestion" class="d-none">
+                        <button class="zzz">Back to all questions</button>
+                        <div class="tips">
+                            <p style="margin: 0 0 10.5px;">
+                                <b>Tips on getting your questions answered faster</b>
+                            </p>
+                            <ul class="bullet-list">
+                                <li>Search to see if your question has been asked before</li>
+                                <li>Be detailed; provide screenshots, error messages, code, or other clues whenever possible</li>
+                                <li>Check grammar and spelling</li>
+                            </ul>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form class="my-form" id="asknewquestion">
+                                    <div class="form-group">
+                                    <label>Title or summary</label>
+                                    <input required class="form-control" placeholder="e.g. Why do we use fit_transform() for training_set?" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                    <label>Details (Optional)</label>
+                                    <textarea id="tiny-question-body" class="form-control" placeholder="e.g.  At 05:28, I didn't understand this part, here is a screenshot of what I tried..." name=""></textarea>
+                                    </div>
+                                    <button class="my-create">Publish</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="questions" class="">
+
+
+                        <div class="o-1 d-flex justify-content-between">
+                            <span><span id="reply-number"></span> questions in this course</span>
+                            <button id="add-question" class="b-1">Ask new question</button>
+                        </div>
+                        <div id="all-questions" class="mb-5">
+
+                        </div>
+
+
+
+                    </div>
+                    <div id="question-info" class="d-none">
+                        <button class="zzz">Back to all questions</button>
+                        <div class="row">
+                            <div class="col-1">
+                                <div style="width: 50px;height: 50px;" class="profile-text d-flex justify-content-center align-items-center">
+                                    FR
+                                </div>
+                            </div>
+                            <div class="col-11">
+                                <div class="question-title" style="font-size: 15px;">
+                                </div>
+                                <div class="awagi" style="margin: 5px 0;">
+                                    <a class="to-profile" href="">Fagan</a>
+                                    <span>Sep, 2020</span>
+                                </div>
+
+                                <div class="question-body" style="font-size: 13px;">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="hgjd"><span>1</span> replies</p>
+                        <div id="rreee" class="mb-4">
+
+                        </div>
+                        <form id="add-reply">
+                            <div class="form-group">
+                                <textarea id="tiny-question-body-add-reply" class="form-control" placeholder="Write your response"></textarea>
+                                <button class="my-create mt-2" style="width: auto;">Add answer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style='margin-top:100px'>
+
+        </div>
+</section>
+<aside id="sidebar" class="sidebar">
+  <ul class="lists">
+    {% for section in course.content.all %}
+    <li class="sec-list" style="padding: 0 !important;">
+      <div class="accordion" id="accordionExample-{{section.id}}">
+          <div>
+              <button id="heading-{{section.id}}" style="width: 100%;padding:16px" class="section-btn" type="button" data-toggle="collapse" data-target="#collapse-{{section.id}}" aria-expanded="true" aria-controls="collapse-{{section.id}}">
+                  <div style="width: 100%;" class="d-flex justify-content-between" >
+                      <span>Section {{ forloop.counter }}: {{section.text}}</span>
+                      <span class="section-btn"><i id="check-arrow" class="fas fa-arrow-down"></i></span>
+                  </div>
+                  <div class="section-detail"> {{section.lecture.all.count}} lecture</div>
+              </button>
+
+          <div id="collapse-{{section.id}}" class="collapse" aria-labelledby="heading-{{section.id}}" data-parent="#accordionExample-{{section.id}}">
+              <div class="card-body">
+                  <ul class="lecture-list">
+                      {% for lecture in section.lecture.all %}
+                          <li class="" data-lecture="{{lecture.id}}">
+                            <a class="my-link" href="/course/{{course.id}}/content/{{lecture.id}}">
+                                {{ forloop.counter }}. {{lecture.text}}
+                              {% if lecture.type == '0' %}
+                              <div class="icon-video">
+                                  <i style="color:#FF0000" class="fab fa-youtube mr-2"></i>1
+                              </div>
+                              {% elif lecture.type == '1' %}
+                              <div class="icon-video">
+                                <i style="color: #22d1ff" class="far fa-file-alt mr-2"></i>quiz
+                            </div>
+                            {% else %}
+                            <div class="icon-video">
+                              <i style="color: #22d1ff" class="far fa-file-alt mr-2"></i>note
+                          </div>
+                              {% endif %}
+                            </a>
+                          </li>
+
+                     {% endfor %}
+                  </ul>
+              </div>
+          </div>
+          </div>
+      </div>
+  </li>
+    {% endfor %}
+  </ul>
+</aside>
+
+{% endblock %}

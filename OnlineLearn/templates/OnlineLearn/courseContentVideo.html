@@ -1,0 +1,11 @@
+{% extends "OnlineLearn/courseContentLayout.html" %}
+{% block content %}
+
+{% if video %}
+<iframe id="cours e-video" src="https://www.youtube.com/embed/{{lecture.video_link}}?&amp;autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+{% else %}
+<div style='width:80%;height:100%;margin-left: 10%;padding-top: 50px;'>
+  {{lecture.information | safe }}
+</div>
+{% endif %}
+{% endblock %}

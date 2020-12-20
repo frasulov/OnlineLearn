@@ -1,0 +1,129 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+<title>{% block title %}{{course.title}} - Online Learn{% endblock %}</title>
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/description.css' %}">
+<!-- <script src="{% static '/OnlineLearn/js/login.js' %}"></script> -->
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+
+        <div class="col-12 col-lg-7 col-xl-9">
+          <div class="cate mt-3">
+            <span>{{course.category.text}}</span>
+            <i class="fas fa-angle-right mx-2"></i>
+            <span>{{course.sub_category.text}}</span>
+          </div>
+          <div class="cc-img d-block d-lg-none c-img" style="height: auto">
+            <img src="{{course.image.url}}">
+          </div>
+    <h1 class="header">{{course.title}}</h1>
+            <p class="mb-1">{{course.sub_title}}</p>
+            <p class="mb-1">{{course.users.all.count}} students</p>
+            <p class="mb-2 mt-0">Created by <a href="{% url 'viewProfile' course.instructor.email %}">{{course.instructor.first_name}} {{course.instructor.last_name}}</a></p>
+        <span class="fa fa-calendar d-block d-lg-inline"> Last updated {{course.updated|date}}</span>
+        <span class="fa fa-language d-block d-lg-inline my-2 mx-lg-2"> {{course.language.text}}</span>
+        <span class="fas fa-closed-captioning" style="font-weight: 150px; font-size:15px;"> English [Auto] </span>
+        <div class="d-block d-lg-none">
+          {% if course in request.user.taken_courses.all %}
+          <div><a href="/course/{{course.id}}/content/0" class="my-own-button mt-3 btn-extra" id="enroll">Go to Course</a></div>
+          {% else %}
+         <div><a href="{% url 'enroll' course.id %}" class="my-own-button mt-3 btn-extra" id="enroll">Enroll to</a></div>
+         {% endif %}
+        </div>
+            <div><button type="button" class="btn btn-outline-secondary btn-lg" id="share"><i class="far fa-share-square"></i><span id="share2">Share</span></button></div>
+</div>
+
+
+        </div>
+    </div>
+<div class="row">
+    <div class="col-12 col-lg-7 col-xl-8 mt-3" id="leftside">
+
+         <style>
+          .content-desc{
+            border: 1px solid rgb(192,192,192);
+          }
+        </style>
+
+  <div class="content-desc">
+
+    {% for section in course.content.all %}
+      <div class="accordion" id="accordionExample-{{section.id}}">
+          <div>
+              <button id="heading-1" style="width: 100%;padding:16px" class="section-btn" type="button" data-toggle="collapse" data-target="#collapse-{{section.id}}" aria-expanded="false" aria-controls="collapse-{{section.id}}">
+                  <div style="width: 100%;" class="zz-extra d-flex justify-content-between" >
+                      <span><i id="check-arrow" class="fas fa-arrow-down mr-2"></i>Section {{ forloop.counter }}: {{section.text}}</span>
+                      <span style='font-size:14px'>{{section.lecture.all.count}} lectures</span>
+                  </div>
+              </button>
+          <div id="collapse-{{section.id}}" class="collapse" aria-labelledby="heading-{{section.id}}" data-parent="#accordionExample-{{section.id}}">
+              <div class="card-body">
+                  <ul class="list-lecture">
+                      {% for lecture in section.lecture.all%}
+                          <li>
+                            {% if lecture.type == '0' %}
+                              <div class="icon-video">
+                                  <i style="color:#FF0000;margin-right:44px" class="fab fa-youtube"></i>
+                                  {{lecture.text}}
+                              </div>
+                              {% else %}
+                              <div class="icon-video">
+                                <i style="color: #22d1ff" class="far fa-file-alt mr-5 ml-1"></i>
+                                {{lecture.text}}
+                              </div>
+                            {% endif %}
+                          </li>
+                          {% endfor %}
+                  </ul>
+              </div>
+          </div>
+          </div>
+      </div>
+      {% endfor %}
+      </div>
+
+      <div class="mt-5">
+        {{course.description|safe}}
+      </div>
+
+        <div class="mt-5">
+        <h1 class="mb-0">Instructor</h1>
+            <h2 class="second my-3"><a href="{% url 'viewProfile' course.instructor.email %}">{{course.instructor.first_name}} {{course.instructor.last_name}}</a></h2>
+            <h3 class="third mt-0" style='font-size:20px;font-weight:500'>{{course.instructor.header}}</h3>
+            <img src="{{course.instructor.profile_pic.url}}" alt="Avatar" class="inst">
+
+        <p class="mt-4">{{course.instructor.biography}}</p>
+        </div>
+
+
+    </div>
+    <div class="col-4 col-xl-3 d-none d-lg-block my-right-side">
+    <div class="cc-img">
+      <img src="{{course.image.url}}">
+    </div>
+    <div style="width: 100%" class="p-3">
+        <h1 class='mb-3'>FREE</h1>
+        {% if course in request.user.taken_courses.all %}
+        <div><a href="/course/{{course.id}}/content/0" class="my-own-button" id="enroll">Go to Course</a></div>
+        {% else %}
+        <div><a href="{% url 'enroll' course.id %}" class="my-own-button" id="enroll">Enroll to</a></div>
+        {% endif %}
+        <div>
+        <h2 class="mb-3">This course includes</h2>
+        <ul class="fa-ul p-0 m-0">
+          <li><i class="fas far fa-sticky-note mr-4 ml-1"></i>Articles</li>
+          <li><i class="fas fa-infinity ml-1" style='margin-right:19px'></i>Full lifetime access
+          </li>
+          <li><i class="far fas fa-check mr-4 ml-1"></i>Quizzes</li>
+        </ul>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

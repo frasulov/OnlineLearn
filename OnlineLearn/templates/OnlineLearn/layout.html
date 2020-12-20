@@ -1,16 +1,39 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static '/OnlineLearn/css/layout.css' %}">
-    <script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script>
+
+<meta name="description" content="Online Learn is destination for online courses for free. Start to learn new things and create your own courses as an instructor.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="Free Courses - Online Learn">
+<meta name="keywords" content="Free, Online, Course, OnlineLearn, Learn, Development, Business, Education, Music, Office, Future, Instructor, Student, category, university, learning, study">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+<meta name="author" content="Fagan Rasulov">
+<link rel="canonical" href="http://udemy.com" />
+<meta property="og:image" content="{% static '/OnlineLearn/favicon.ico' %}">
+<meta property="og:type" content="video_lecture">
+<meta property="og:locale" content="AZ">
+<meta property="og:site_name" content="Online Learn">
+
+
+<link rel="shortcut icon" type="image/ico" href="{% static '/OnlineLearn/favicon.ico' %}"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/layout.css' %}">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/fed34ed002.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.6/css/uikit.min.css" integrity="sha512-Qd74A/PfiTq1uQtt9KeeSc2Z6/3dj4aj3ar+ewslTXBF2rXWxa+lmThB0qCupcvY4Z7lrILDQSZCeoeW2+IJ8Q==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.css" integrity="sha512-l74DvoQfunHVU2XU78fkSoyYJ6k6FzujNwWB5c3/U5AplWV6HnuyCfj4uNSEqFvd7i1nBvhUQ2Pr3e6JfkCPOA==" crossorigin="anonymous" />
-</script>
-     <title>{% block title %}Online Learn{% endblock %}</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<script src='https://cdn.tiny.cloud/1/jhut87kznd0ydhpeagbuifp3rdhnu499e4wgaoboee5a3635/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+     <title>{% block title %}Free Courses - Online Learn{% endblock %}</title>
+
 </head>
 
 <body style="background-color: #fff !important">
@@ -19,21 +42,16 @@
             <div class="s-second">
                 <div id="back" class="mb-4 mt-3"><i class="fas fa-angle-left mr-2"></i> Menu</div>
                 <ul id="category" class="d-none">
-                    <li>All technology</li>
-                    <li><a href="">Technology</a></li>
-                    <li><a href="">Technology</a></li>
-                    <li><a href="">Technology</a></li>
-                    <li><a href="">Technology</a></li>
-                    <li><a href="">Technology</a></li>
-                    <li><a href="">Technology</a></li>
+
                 </ul>
                 <ul id="profile" class="d-none">
                   {% if user.is_authenticated %}
                     <li>Account</li>
-                    <li><a href="">My quiz results</a></li>
-                    <li><a href="">My messages</a></li>
-                    <li><a href="">View Profile</a></li>
-                    <li><a href="">Edit Profile</a></li>
+                    {% if user.is_instructor %}
+                      <li><a href="{% url 'instructorDashboard' %}">Instructor Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'viewProfile' user.email %}">View Profile</a></li>
+                    <li><a href="{% url 'editProfile' user.email %}">Edit Profile</a></li>
                     <li><a href="{% url 'logout' %}">Log out</a></li>
                   {% endif %}
                 </ul>
@@ -44,15 +62,9 @@
             <div class="p-first" style="padding-bottom: 15px;">
                 <div class="row">
                     <div class="col-3" style="position: static;">
-                      {% if user.profile_image %}
                         <div class="profile-img p-img-3">
                             <img src="{{user.profile_pic.url}}" alt="">
                         </div>
-                        {% else %}
-                        <div class="profile-text p-img-3 d-flex justify-content-center align-items-center" style="font-size:30px">
-                        <span>{{user.first_name.0}}{{user.last_name.0}}</span>
-                        </div>
-                        {% endif %}
                     </div>
                     <div class="col-7" style="position: static;">
                         <h2 style="margin-top: 10px;">Hi, {{user.first_name}} {{user.last_name}}</h2>
@@ -78,122 +90,104 @@
         <div class="s-second">
             <ul>
                 <li>Most Popular</li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology2</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology3</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology4</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology5</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology5</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology6</span><i class="fas fa-angle-right"></i></li>
-                <li class="for-more-click d-flex justify-content-between"><span>Technology7</span><i class="fas fa-angle-right"></i></li>
+                {% for category in categories %}
+                <li data-categoryid='{{category.id}}' class="for-more-click d-flex justify-content-between"><span>{{category.text}}</span><i class="fas fa-angle-right"></i></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
 <!-- </div> -->
 
-    <div class="pusher" style="overflow:visible">
-        <nav class="my-nav">
-            <a class="nav-brand d-none d-md-inline" href="">Online Learn</a>
+    <div class="pusher" style="overflow:visible;">
+        <nav id="my-nav" class="my-nav bg-light">
+            <a class="nav-brand d-none d-md-inline" href="{% url 'index' %}">Online Learn</a>
             <div class="phone d-flex d-md-none justify-content-between align-items-center">
                 <button class="toggler" onclick="sidebarCC()"><i class="fas fa-bars"></i></button>
-                <a class="nav-brand-phone" href="">Online Learn</a>
-                <span></span>
+                <a class="nav-brand-phone" href="/">Online Learn</a>
+                <button id="s-phone-btn" type="button" name="button"><i class="fas fa-search"></i></button>
+                <div id="search-phone" class="d-none">
+                    <div class="row" style='height:100%;'>
+                      <div class='col-1 d-flex align-items-center'><i class="fas fa-search"></i></div>
+                      <div class='col-10 d-flex align-items-center'>
+                        <form action="{% url 'search' %}" method="GET">
+                            <input id="my-phone-input" type="text" name="q" autocomplete="off" placeholder="Search for something">
+                        </form>
+                      </div>
+                      <div class='col-1 d-flex align-items-center justify-content-end'><button id="close-phone"><i class="fas fa-times"></i></button></div>
+                    </div>
+                    <div class="search_phone_result d-none">
+                      <ul id="phone-res">
+                        <li class="row">
+                          <div class="col-1"><i class="fas fa-search"></i></div>
+                          <div class="col-11"><a class='s-result m-0 p-0' href='/search?q=${query}'>${query}</a></div>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+
             </div>
             <div class="nav-elemets d-none d-md-flex">
                 <div class="main">
                     <span class="ctgr-text">Categories</span>
                   <div class="inside d-none">
-                      <ul>
-                          <li><span>Technology</span><i class="fas fa-angle-right"></i></li>
-                          <li><span>Technology</span><i class="fas fa-angle-right"></i></li>
-                          <li><span>Technology</span><i class="fas fa-angle-right"></i></li>
-                          <li><span>Technology</span><i class="fas fa-angle-right"></i></li>
-                          <li><span>Technology</span><i class="fas fa-angle-right"></i></li>
+                      <ul id="first-categories">
+                        {% for category in categories%}
+                          <li data-categoryid='{{category.id}}'><span>{{category.text}}</span><i class="fas fa-angle-right"></i></li>
+                          {% endfor %}
                       </ul>
                       <div class="double-inside d-none">
-                          <ul>
-                              <li>Technology</li>
-                              <li>Technology</li>
-                              <li>Technology</li>
-                              <li>Technology</li>
-                              <li>Technology</li>
+                          <ul id="fetching-sub-category">
                           </ul>
                       </div>
                   </div>
                 </div>
                 <div class="search-box d-flex">
-                    <form action="">
+                    <form action="{% url 'search' %}" method='GET'>
                         <table class="in" width="100%">
                             <tr>
                                 <td width="5%" align="center" style="margin-right: 2px;">
                                 <span class="icon-s"><i class="fas fa-search"></i></span></td>
                                 <td>
-                                    <input type="text" name="" id="" placeholder="Search for something">
+                                    <input type="text" name="q" autocomplete="off" placeholder="Search for something">
                                 </td>
                             </tr>
                         </table>
                     </form>
                     <div class="next d-none">
-                        <ul>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
-                            <li><i class="fas fa-search"></i><span>Fagan Wrote</span></li>
+                        <ul id="ss-result">
                         </ul>
                     </div>
                 </div>
                 {% if user.is_authenticated %}
                 <div class="d-flex right-side-2" style="height: 61px;">
                     <div class="d-flex">
-                        <!-- <div class="d-flex align-items-center">
-                            first thing
-                        </div> -->
                         <div class="pp d-flex align-items-center ml-2">
-                            {% if not user.profile_image%}
-                            <div class="profile-text d-flex justify-content-center align-items-center">
-                                <span>{{user.first_name.0}}{{user.last_name.0}}</span>
-                            </div>
-                            {% else %}
                             <div class="profile-img">
                                 <img src="{{user.profile_pic.url}}" alt="">
                             </div>
-                            {% endif %}
-                            <div class="profile-tho d-none">
+                            <div class="profile-tho d-none" style="overflow:hidden">
                                 <div class="p-first">
                                     <div class="row">
                                         <div class="col-4">
-                                          {% if user.profile_image%}
                                             <div class="profile-img p-img-2">
                                                 <img src="{{user.profile_pic.url}}" alt="">
                                             </div>
-                                            {% else %}
-                                            <div class="profile-text p-img-2 d-flex justify-content-center align-items-center" style="font-size:32px">
-                                              <span>{{user.first_name.0}}{{user.last_name.0}}</span>
-                                            </div>
-                                            {% endif %}
                                         </div>
                                         <div class="col-8">
                                             <h2>{{user.first_name}} {{user.last_name}}</h2>
-                                            <div class="mail">{{user.email}}</div>
+                                            <div class="mail" style="overflow:scroll" title='{{user.email}}'>{{user.email}}</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="xett"></div>
                                 <div class="p-second">
-                                    <ul>
-                                        <li><a href="">My courses</a></li>
-                                        <li><a href="">My quiz results</a></li>
-                                        <li><a href="">My messages</a></li>
-                                    </ul>
-                                </div>
-                                <div class="xett"></div>
-                                <div class="p-second">
-                                    <ul>
-                                        <li><a href="">View Profile</a></li>
-                                        <li><a href="">Edit Profile</a></li>
+                                        <ul>
+                                        {% if user.is_instructor %}
+                                        <li><a href="{% url 'instructorDashboard' %}">Instructor Dashboard</a></li>
+                                        {% endif %}
+
+                                        <li><a href="{% url 'viewProfile' user.email %}">View Profile</a></li>
+                                        <li><a href="{% url 'editProfile' user.email %}">Edit Profile</a></li>
                                         <li><a href="{% url 'logout' %}">Log out</a></li>
                                     </ul>
                                 </div>
@@ -223,7 +217,35 @@
 
 
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="{% static '/OnlineLearn/js/layout.js' %}"></script>
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/sidebar.min.js" integrity="sha512-1tmZBYaLOUohS48wc5egam1rTAIi71yvIpxj0FXHo6FskhgMF3LyCAdLvCFYi4e/L0GfH6BFtDBFD2wVa645Dg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+      $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:20,
+    nav:true,
+    // center: true,
+    autoplay:true,
+    autoplayTimeout:2000,
+    autoplayHoverPause:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:4
+        }
+    }
+});
+});
+</script>
 </html>

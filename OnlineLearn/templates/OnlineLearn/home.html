@@ -1,10 +1,139 @@
 {% extends "OnlineLearn/layout.html" %}
+{% load static %}
 {% block body %}
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/home.css' %}">
+	<div id="image">
+		<img src="https://www.classcentral.com/report/wp-content/uploads/2020/04/covid-19-learning.png"></img>
+	<div class="on">
+		<div>Online Learn</div>
+	</div>
+    </div>
 
-{% if user.is_authenticated %}
-<h1>I am {{user}}</h1>
-{%else%}
-<h1>No user</h1>
-{%endif%}
+      <br><br><br>
+
+  <hr id="hr1">
+    <p id="p1">World-class learning for anyone, anywhere</p>
+      <hr id="hr2">
+
+  <br><br>
+
+<div class="my-container">
+  <div class="row">
+	 <div class="col-4">
+    <img src="https://library.kissclipart.com/20180922/vow/kissclipart-computer-user-icon-png-clipart-computer-icons-user-918c75a1d29951ce.png" style="width:60px; height:60px;">
+    <span class='my-span d-none d-md-inline'>100+ online courses</span>
+   </div>
+
+<div class="col-4">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwCRbGW7_qaumeg9OCafPNnC-evLL1N120aQ&usqp=CAU" style="width:60px; height:60px; margin-left: 30%;" >
+    <span class='my-span d-none d-md-inline'>Expert instruction</span>
+</div>
+
+<div class="col-4">
+    <img src="https://img.pngio.com/click-double-tap-touch-touch-interface-touch-screen-icon-touch-screen-png-512_512.png" style="width:60px; height:60px; margin-left: 40%;">
+    <span class='my-span d-none d-md-inline'>Lifetime access</span></div>
+  </div>
+</div>
+
+
+
+<br><br><br>
+
+<!-- starts from -->
+<div class="my-con">
+  <div class="cat">Top courses</div>
+  <div class="owl-carousel owl-theme">
+					{% for course in courses %}
+					<div class="item">
+              <div class="course_1">
+                  <div class="courses_image">
+                      <img style="border-radius: 3px;" src="{{course.image.url}}" alt="course image"/>
+                  </div>
+
+                  <div class="courses_details">
+											{% if course.titleLength >= 70 %}
+											<p style="min-height: 45px;"><a href="{% url 'course' course.id %}" class='title-link'>{{course.title |slice:"0:75"}}...</a></p>
+											{% else %}
+												<p style="min-height: 45px;"><a class="title-link" href="{% url 'course' course.id %}">{{course.title}}</a></p>
+											{% endif %}
+
+                      <p class="created">{{course.instructor.first_name}} {{course.instructor.last_name}}</p>
+                      <p class="free">Free</p>
+                  </div>
+              </div>
+          </div>
+					{% endfor %}
+  </div>
+
+	{% if request.user.is_authenticated %}
+	{% if result_courses_len != 0 %}
+  <div class="cat">Because you searched '{{request.user.last_search_query}}'</div>
+  <div class="owl-carousel owl-theme">
+					{% for course in result_courses %}
+          <div class="item">
+              <div class="course_1">
+                  <div class="courses_image">
+                      <img style="border-radius: 3px;" src="{{course.image.url}}" alt="course image"/>
+                  </div>
+
+                  <div class="courses_details">
+                      <p>{{course.title}}</p>
+                      <p class="created">{{course.instructor.first_name}} {{course.instructor.last_name}}</p>
+                      <p class="free">Free</p>
+                  </div>
+              </div>
+          </div>
+				{% endfor %}
+  </div>
+	{% endif %}
+	{% endif %}
+</div>
+<!-- finished owl -->
+
+<div class="smtA mt-5" style="background-color: #1e4075;">
+<div class="row mt-4">
+  <div class="col-12 col-lg-7" class="smt">
+      <p class="smtp1">Learner outcomes on OnlineL</p>
+      <p class="smtp2" class='mt-4'><span style="font-weight:400">87% of people</span> learning for professional development <span style="font-weight:400">report career benefits</span> like getting a promotion, a raise, or starting a new career</p>
+  </div>
+<div class="col-lg-5 d-none d-lg-block" class="smt1"><img style="width:480px;
+     height:270px;" src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera_assets/front-page-story/achieve-your-goals/promoStat.png?auto=format%2Ccompress&dpr=2&w=445&h=250&q=40"></div>
+</div>
+</div>
+
+
+
+<div class="subcon">
+  <div class="cat mb-0">Top categories</div>
+
+
+<div class="row">
+  {% for category in categories %}
+  <div class="col-12 col-md-6 col-lg-3 mt-5">
+    <div class="for-img">
+    <img src="{{category.image.url}}" title='{{category.text}}' alt="{{category.text}}">
+    <a href='/search?q={{category.text}}' class="cp"> {{category.text}}</a>
+  </div>
+</div>
+{% endfor %}
+</div>
+<br>
+</div>
+
+
+<div class="smtB">
+<div class="row mt-4">
+  <div class="col-lg-5 d-none d-lg-block" class="smt1"><img style="width:480px; height:270px; padding-left: 50px;" src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://s3.amazonaws.com/coursera_assets/front-page-story/secondary-consumer-cta/secondary-consumer-hero-img.png?auto=format%2Ccompress&dpr=2&w=400&h=250&q=40"></div>
+
+  <div class="col-12 col-lg-7 d-flex align-items-center" class="smt">
+      <p class="smtp2" class='mt-4'><span style="font-weight:400;font-size:40px">Take the next step</span> toward your personal and professional goals with Online Learn.</p>
+  </div>
+</div>
+</div>
+
+<div id="end">
+  <span style=" font-size: 15px; color: white;"> Copyright @ 2020 ClassA</span>
+</div>
+
 
 {% endblock %}

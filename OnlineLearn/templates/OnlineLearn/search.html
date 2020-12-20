@@ -1,0 +1,94 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/search.css' %}">
+
+<!-- <p>query: {{search}}</p> -->
+<!-- <p>{{result}}</p> -->
+
+<title>{% block title %}Search result for '{{search}}' - Online Learn{% endblock %}</title>
+<div class="grey">
+  {% if result_len %}
+		<div class="results">{{result_len}} total results for "{{search}}"</div>
+    {% else %}
+    <div class="results">No course found for "{{search}}"</div>
+    {% endif %}
+</div>
+
+  {% for course in page_obj %}
+ 	<div class="first">
+		<div class="row" style="width: 100%">
+			<div class="col-12 col-md-5 col-lg-4 col-xl-3">
+				<img class="first_img" src="{{course.image.url}}">
+			</div>
+
+			<div class="col-12 col-md-7 col-lg-8 col-xl-9">
+				<p class="first_p" style="font-weight: 600;min-height: 49px;">
+					<a href="{% url 'course' course.id %}">{{course.title}}
+					</a>
+				</p>
+				<p class="first_p mb-2" style="font-weight: 200;">{{course.sub_title}}</p>
+				<p class="free">Free</p>
+
+				<div class=first_span>
+					<span class="fa fa-calendar d-block d-md-inline">&nbsp Last updated {{course.updated | date}} &nbsp &nbsp</span>
+        			<span class="fa fa-language d-block d-md-inline my-2 my-md-0">&nbsp {{course.language}} &nbsp &nbsp</span>
+        			<span class="fas fa-closed-captioning" style="font-weight: 150px; font-size:15px;"> English [Auto]</span>
+        		</div>
+			</div>
+		</div>
+	</div>
+  <hr class='hr1'>
+  {% endfor %}
+  <!-- <hr class="hr1"> -->
+      {% if page_obj %}
+  		<div class="my-pag d-flex justify-content-center">
+        {% if page_obj.has_previous %}
+           <a href="?q={{search}}&page=1">1</a>
+           <a href="?q={{search}}&page={{ page_obj.previous_page_number }}"><i class="fas fa-chevron-left"></i></a>
+       {% endif %}
+
+       <a class="current">
+          {{ page_obj.number }}
+      </a>
+
+      {% if page_obj.has_next %}
+          <a href="?q={{search}}&page={{ page_obj.next_page_number }}"><i class="fas fa-chevron-right"></i></a>
+          <a href="?q={{search}}&page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
+      {% endif %}
+      {% endif %}
+  		</div>
+
+
+
+<div class="cs">
+	<div class="cat mb-4">Most attended courses</div>
+    	<div class="owl-carousel owl-theme">
+        {% for course in popular_courses %}
+        <div class="item">
+            <div class="course_1">
+                <div class="courses_image">
+                    <img style="border-radius: 3px;" src="{{course.image.url}}" alt="course image"/>
+                </div>
+
+                <div class="courses_details">
+                    {% if course.titleLength >= 65 %}
+                    <p style="min-height: 45px;"><a href="{% url 'course' course.id %}" class='title-link'>{{course.title |slice:"0:65"}}...</a></p>
+                    {% else %}
+                      <p style="min-height: 45px;"><a class="title-link" href="{% url 'course' course.id %}">{{course.title}}</a></p>
+                    {% endif %}
+                    <p class="created">{{course.instructor.first_name}} {{course.instructor.last_name}}</p>
+                    <p class="free">Free</p>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+    <br>
+    <br>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+<title>{% block title %}Edit Profile - Online Learn{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'OnlineLearn/css/editProfile.css' %}">
+
+<div class="editProfile">
+    <h2>Profile & Settings</h2>
+
+    <form class="form-1" action="{% url 'editProfile' user.email %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" class="form-control my-input-field" type="email" value="{{user.email}}" placeholder="yourname@example.com" name="email" required readonly>
+                        <div class="comment">You cannot change your email!</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label >Student or Instructor</label>
+                        <select class="form-control my-input-field" name="instructor" readonly>
+                          {% if user.is_instructor %}
+                            <option selected value="1" disabled>Instructor</option>
+                          {% else %}
+                          <option selected value="0" disabled>Student</option>
+                          {% endif %}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="firstname">Firstname</label>
+                        <input id="firstname" class="form-control my-input-field" type="text" placeholder="Fagan" value="{{user.first_name}}" name="firstname" required>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="lastname">Lastname</label>
+                        <input id="lastname" class="form-control my-input-field" type="text" placeholder="Rasulov" value="{{user.last_name}}" name="lastname" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select class="form-control my-input-field" name="gender">
+                          {% if user.gender == 'male' %}
+                            <option selected value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                          {% elif user.gender == 'female' %}
+                          <option value="male">Male</option>
+                          <option selected value="female">Female</option>
+                          <option value="other">Other</option>
+                          {% else %}
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option selected value="other">Other</option>
+                          {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="birth">Birth date</label>
+                        <input class="form-control my-input-field" name="birthday" type="date" placeholder="yyyy-mm-dd" value="{{user.getBirthdayHTML}}" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="bio">Biography</label>
+                        <textarea name="bio" id="bio" class="form-control my-input-field" rows="5" placeholder="Biography"></textarea>
+                        <div class="comment">Don't add links to your Biography!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="linkedn">LinkedIn</label>
+                        <input id="linkedn" class="form-control my-input-field" type="text" value="{{user.linkedn}}" placeholder="http://www.linkedin.com/resource_ID" name="linkedn">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="facebook">Facebook</label>
+                        <input id="facebook" class="form-control my-input-field" type="text" value="{{user.facebook}}" placeholder="http://www.facebook.com/username" name="facebook">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="header">Header</label>
+                        <input id="header" class="form-control my-input-field" type="text" value="{{user.header}}" placeholder="Ex: Back-end Developer" name="header">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label for="image">Profile Image</label>
+                        <input id="image" accept=".gif,.jpg,.jpeg,.png" type="file" name="profile_image">
+                    </div>
+                </div>
+            </div>
+            <button class="my-own-button">Save</button>
+        </form>
+</div>
+
+{% endblock %}

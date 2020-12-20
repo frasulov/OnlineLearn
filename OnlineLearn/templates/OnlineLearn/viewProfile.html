@@ -1,0 +1,106 @@
+{% extends "OnlineLearn/layout.html" %}
+{% load static %}
+{% block body %}
+
+
+<link rel="stylesheet" href="{% static '/OnlineLearn/css/viewProfile.css' %}">
+
+<title>{% block title %}{{profile_user.first_name}} {{profile_user.last_name}} prfile - Online Learn{% endblock %}</title>
+<div class="jumbotron my-extra-css">
+  <h2>{{profile_user.first_name}} {{profile_user.last_name}}</h2>
+  <p class="header">
+    {% if profile_user.is_instructor %}
+      <span>Instructor</span>
+    {% else %}
+    <span>Student</span>
+    {% endif %}
+    {% if profile_user.header %}
+      <span><i class="fas fa-angle-right mx-2"></i></span>
+      <span>{{profile_user.header}}</span>
+      {% endif%}
+  </p>
+  {% if profile_user.facebook or profile_user.linkedn %}
+  <p class="header mt-2">
+    Social Media
+    <span><i class="fas fa-angle-right mx-2"></i></span>
+    {% if profile_user.facebook %}
+    <a href="{{profile_user.facebook}}" class='mr-2' style='color:#fff' target="_blank"><i class="fab fa-facebook-square"></i></a>
+    {%endif%}
+    {% if profile_user.linkedn%}
+    <a href="{{profile_user.linkedn}}" style='color:#fff;' target="_blank"><i class="fab fa-linkedin-square"></i></a>
+    {% endif %}
+  </p>
+  {% endif %}
+</div>
+
+<div class="profile-info">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <div class="responsible">
+          <div class="img">
+              <img src="{{profile_user.profile_pic.url}}" alt="">
+          </div>
+          </div>
+      </div>
+        <div class="col-12 col-md-9 d-text">
+          {{profile_user.biography}}
+        </div>
+    </div>
+</div>
+
+<div class="enrolled-course">
+      {% if profile_user.is_instructor %}
+      <p>Courses are created by {{profile_user.first_name}} {{profile_user.last_name}}</p>
+      <div class="row mt-2">
+        {% for course in profile_user.courses.all%}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2">
+          <div class="item">
+              <div class="course_1">
+                  <div class="courses_image">
+                      <img style="border-radius: 3px;" src="{{course.image.url}}" alt="course image"/>
+                  </div>
+
+                  <div class="courses_details">
+                      {% if course.titleLength >= 60 %}
+                      <div style="min-height: 45px;"><a href="{% url 'course' course.id %}" class='title-link'>{{course.title | slice:"0:65"}}...</a></div>
+                      {% else %}
+                      <div style="min-height: 45px;"><a class="title-link" href="{% url 'course' course.id %}">{{course.title}}</a></div>
+                      {% endif %}
+                      <div class="created">{{course.instructor.first_name}} {{course.instructor.last_name}}</div>
+                      <div class="free">Free</div>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <p class='mt-2'>Courses {{profile_user.first_name}} {{profile_user.last_name}} is enrolled in</p>
+      <div class="row mt-2">
+        {% for course in profile_user.taken_courses.all%}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2">
+          <div class="item">
+              <div class="course_1">
+                  <div class="courses_image">
+                      <img style="border-radius: 3px;" src="{{course.image.url}}" alt="course image"/>
+                  </div>
+
+                  <div class="courses_details">
+                      {% if course.titleLength >= 60 %}
+                      <div style="min-height: 45px;"><a href="{% url 'course' course.id %}" class='title-link'>{{course.title |slice:"0:65"}}...</a></div>
+                      {% else %}
+                      <div style="min-height: 45px;"><a class="title-link" href="{% url 'course' course.id %}">{{course.title}}</a></div>
+                      {% endif %}
+                      <div class="created">{{course.instructor.first_name}} {{course.instructor.last_name}}</div>
+                      <div class="free">Free</div>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+</div>
+
+{% endblock %}

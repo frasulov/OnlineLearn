@@ -1,0 +1,136 @@
+.container-fluid {
+    height: auto;
+}
+.col {
+    background-color: #172156;
+    height: auto;
+    color: white;
+    padding: 10px 80px 20px 70px;
+    min-height: 100px;
+}
+.header{
+  color:#fff;
+}
+.my-right-side{
+    padding:0;
+    background-color: white;
+    position: fixed;
+    top: 80px;
+    right: 50px;
+    box-shadow: 0 0 5px #333; 
+}
+#enroll {
+    text-align: center;
+    padding: 10px 50px 10px 50px;
+    width: 100%;
+}
+#leftside {
+    padding: 10px 0 0 70px;
+
+}
+#share {
+color: white;
+
+}
+#share2 {
+    padding: 10px;
+}
+.btn {
+    margin-top: 10px;
+
+}
+.fa-ul {
+line-height: 200%;
+}
+
+.third {
+    color: #73726c;
+}
+.second {
+    color: #0f7c90;
+}
+.second a{
+  color:inherit;
+}
+.second a:hover{
+  text-decoration: none;
+  color: inherit;;
+}
+.inst {
+  border-radius: 50%;
+  width: 20%;
+  float: left;
+  margin-right: 20px;
+}
+. btn-lg {
+    color: white;
+}
+
+/*i added*/
+.cc-img{
+    width: 100%;
+    height: 200px;
+}
+.cc-img img{
+    width: 100%;
+    height: 100%;
+}
+.my-own-button{
+    display: block;;
+    font-size: 22px;
+    letter-spacing: 1px;
+    border:none;
+    border: 1px solid transparent;
+    width: 100%;
+    background-color: #172156;
+    border-radius: 7px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.my-own-button:hover{
+    color: #172156;
+    border-color: #172156;
+    background-color: white;
+    text-decoration: none !important;
+}
+
+.btn-extra{
+    border-color: #fff;
+}
+
+.cate{
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 30px
+}
+@media only screen and (max-width: 991px) {
+    #leftside {
+        padding: 20px;
+        font-size: 15;
+    }
+    .col {
+        padding: 0;
+
+    }
+    .header {
+        font-size: 30;
+    }
+    #share{
+        margin-bottom: 20px;
+    }
+}
+
+.list-lecture{
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+.list-lecture li + li{
+  margin-top:10px;
+}
+.section-btn{
+  background-color: #fbfbf8;
+  border:none;
+  border-bottom: 1px solid #dcdacb;
+}
